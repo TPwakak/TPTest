@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="lineprocess" name="lineprocess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="onePer" name="部门经理审批"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="onePer"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="审核信息不重要" name="审核信息不重要" sourceRef="onePer" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${message=='不重要'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="towPer" name="总经理审批"></userTask>
+    <sequenceFlow id="flow3" sourceRef="onePer" targetRef="towPer"></sequenceFlow>
+    <sequenceFlow id="审核信息重要" name="审核信息重要" sourceRef="towPer" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${message=='重要'}]]></conditionExpression>
+    </sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Enter your text here</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_lineprocess">
+    <bpmndi:BPMNPlane bpmnElement="lineprocess" id="BPMNPlane_lineprocess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="onePer" id="BPMNShape_onePer">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="333.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="towPer" id="BPMNShape_towPer">
+        <omgdc:Bounds height="55.0" width="105.0" x="500.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="255.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="审核信息不重要" id="BPMNEdge_审核信息不重要">
+        <omgdi:waypoint x="352.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="280.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="54.0" width="100.0" x="357.0" y="150.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="405.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="审核信息重要" id="BPMNEdge_审核信息重要">
+        <omgdi:waypoint x="552.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="280.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="54.0" width="100.0" x="552.0" y="105.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

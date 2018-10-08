@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="gatewayProcess" name="gatewayprocess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="费用报销申请" name="费用报销申请" activiti:assignee="王小五"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="费用报销申请"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="默认执行财务"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="费用报销申请" targetRef="exclusivegateway1"></sequenceFlow>
+    <userTask id="财务" name="财务"></userTask>
+    <sequenceFlow id="默认执行财务" name="报销金额小于500，默认执行" sourceRef="exclusivegateway1" targetRef="财务"></sequenceFlow>
+    <userTask id="总经理审批" name="总经理审批"></userTask>
+    <sequenceFlow id="总经理审批连线" name="金额大于1000," sourceRef="exclusivegateway1" targetRef="总经理审批">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${money>1000}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="部门经理审批" name="部门经理审批"></userTask>
+    <sequenceFlow id="经理审批连线" name="金额大于500.小于1000" sourceRef="exclusivegateway1" targetRef="部门经理审批">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${money>=500 && money<1000}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow6" sourceRef="财务" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="总经理审批" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="部门经理审批" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_gatewayProcess">
+    <bpmndi:BPMNPlane bpmnElement="gatewayProcess" id="BPMNPlane_gatewayProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="费用报销申请" id="BPMNShape_费用报销申请">
+        <omgdc:Bounds height="55.0" width="105.0" x="285.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="317.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="财务" id="BPMNShape_财务">
+        <omgdc:Bounds height="55.0" width="105.0" x="285.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="总经理审批" id="BPMNShape_总经理审批">
+        <omgdc:Bounds height="55.0" width="105.0" x="500.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="部门经理审批" id="BPMNShape_部门经理审批">
+        <omgdc:Bounds height="55.0" width="105.0" x="70.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="337.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="80.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="337.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="默认执行财务" id="BPMNEdge_默认执行财务">
+        <omgdi:waypoint x="337.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="310.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="72.0" width="100.0" x="288.0" y="219.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="总经理审批连线" id="BPMNEdge_总经理审批连线">
+        <omgdi:waypoint x="337.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="552.0" y="300.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="54.0" width="100.0" x="410.0" y="227.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="经理审批连线" id="BPMNEdge_经理审批连线">
+        <omgdi:waypoint x="337.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="122.0" y="300.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="54.0" width="100.0" x="161.0" y="245.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="337.0" y="365.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="552.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="122.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
