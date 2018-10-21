@@ -47,7 +47,7 @@ public class ActivitiReciveTest {
 		processEngine.getRuntimeService().setVariable(execution1.getId(), "汇总当日销售额", 21000);	
 		/**向后执行一步，如果流程处于等待状态，使得流程继续执行*/		
 		//processEngine.getRuntimeService().signal(execution1.getId());	
-		processEngine.getRuntimeService().signalEventReceived(execution1.getName(), execution1.getId());
+		processEngine.getRuntimeService().signalEventReceived(execution1.getName());
 		/**查询执行对象ID*/		
 		Execution execution2 = processEngine.getRuntimeService()//	
 				.createExecutionQuery()//创建执行对象查询			
@@ -60,9 +60,7 @@ public class ActivitiReciveTest {
 		System.out.println("给老板发送短信：金额是："+value);	
 		/**向后执行一步，如果流程处于等待状态，使得流程继续执行*/	
 		//processEngine.getRuntimeService().signal(execution2.getId());	
-		processEngine.getRuntimeService().signalEventReceived(execution2.getName(), execution2.getId());
+		processEngine.getRuntimeService().signalEventReceived(execution2.getName());
 	}	
-
-
 
 }
