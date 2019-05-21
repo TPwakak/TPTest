@@ -16,7 +16,6 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.Test;
 
 
@@ -30,7 +29,7 @@ public class ActivitiTest0 {
 		// 引擎配置       
 		ProcessEngineConfiguration pec=ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();       
 		pec.setJdbcDriver("com.mysql.jdbc.Driver");      
-		pec.setJdbcUrl("jdbc:mysql://localhost:3306/db_activiti?useUnicode=true&characterEncoding=utf8");     
+		pec.setJdbcUrl("jdbc:mysql://localhost:3306/test_activiti?useUnicode=true&characterEncoding=utf8");     
 		pec.setJdbcUsername("root");    
 		pec.setJdbcPassword("root123");            
 		/**         
@@ -41,7 +40,7 @@ public class ActivitiTest0 {
 		pec.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);                 
 		// 获取流程引擎对象   
 		ProcessEngine processEngine=pec.buildProcessEngine(); 
-		
+		System.out.println(processEngine.getName());
 		}
 	
 	/**
@@ -53,6 +52,7 @@ public class ActivitiTest0 {
 		ProcessEngineConfiguration pec=ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml");  
 		// 获取流程引擎对象    
 		ProcessEngine processEngine=pec.buildProcessEngine();
+		System.out.println(processEngine.getName());
 	}
 	
 
@@ -153,7 +153,7 @@ public class ActivitiTest0 {
 		List<ProcessDefinition> list = processEngine.getRepositoryService()//与流程定义和部署对象相关的Service        
 				.createProcessDefinitionQuery()//创建一个流程定义的查询            
 				/**指定查询条件,where条件*/                     
-			//	.deploymentId(deploymentId)//使用部署对象ID查询                          
+				.deploymentId("25001")//使用部署对象ID查询                          
 			//	.processDefinitionId(processDefinitionId)//使用流程定义ID查询      /                     
 			//	.processDefinitionKey(processDefinitionKey)//使用流程定义的key查询                         
 			//	.processDefinitionNameLike(processDefinitionNameLike)//使用流程定义的名称模糊查询                                                        

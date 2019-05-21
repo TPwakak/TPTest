@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 
@@ -88,7 +90,7 @@ public class ActivitiTest1 {
 	@Test	
 	public void completeMyPersonalTask(){		
 		//任务ID		
-		String taskId = "20005";	
+		String taskId = "80005";	
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		processEngine.getTaskService()//与正在执行的任务管理相关的Service	
 		.complete(taskId);		
@@ -102,6 +104,8 @@ public class ActivitiTest1 {
 	public void isProcessEnd(){		
 		String processInstanceId = "20001";		
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+		RuntimeService  r = processEngine.getRuntimeService();
+		ProcessInstanceQuery p = r.createProcessInstanceQuery();
 		ProcessInstance pi = processEngine.getRuntimeService()//表示正在执行的流程实例和执行对象
 				.createProcessInstanceQuery()//创建流程实例查询			
 				.processInstanceId(processInstanceId)//使用流程实例ID查询		

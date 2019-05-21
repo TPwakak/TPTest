@@ -1,4 +1,4 @@
-package activitiTest;
+package share;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.junit.Test;
 
-public class ActivitiTest3 {
+public class HistoryServiceTest {
 	
 	ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();	
 
@@ -75,7 +75,7 @@ public class ActivitiTest3 {
 	public void historyActInstanceList(){      
 		List<HistoricActivityInstance> list=(List<HistoricActivityInstance>) processEngine.getHistoryService() // 历史任务Service    
 				.createHistoricActivityInstanceQuery() // 创建历史活动实例查询      
-				.processInstanceId("20001") // 指定流程实例id      
+				.processInstanceId("67501") // 指定流程实例id      
 				.finished() // 查询已经完成的任务    
 				.list();     
 		for(HistoricActivityInstance hai:list){    
@@ -95,7 +95,7 @@ public class ActivitiTest3 {
 	 */	
 	@Test
 	public void findHistoryActiviti(){	
-		String processInstanceId = "20001";	
+		String processInstanceId = "5001";	
 		List<HistoricActivityInstance> list = (List<HistoricActivityInstance>) processEngine.getHistoryService()	
 				.createHistoricActivityInstanceQuery()//创建历史活动实例的查询			
 				.processInstanceId(processInstanceId)
@@ -114,7 +114,7 @@ public class ActivitiTest3 {
 	 */	
 	@Test	
 	public void findHistoryProcessVariables(){
-		String processInstanceId = "30001";		
+		String processInstanceId = "5001";		
 		List<HistoricVariableInstance> list = (List<HistoricVariableInstance>) processEngine.getHistoryService()
 				.createHistoricVariableInstanceQuery()//创建一个历史的流程变量查询对象	
 				.processInstanceId(processInstanceId)

@@ -4,7 +4,7 @@
     <startEvent id="startevent1" name="Start"></startEvent>
     <userTask id="付款" name="付款"></userTask>
     <userTask id="发货" name="发货"></userTask>
-    <userTask id="收货1" name="收货"></userTask>
+    <userTask id="收货1" name="买家付款后直接收货"></userTask>
     <sequenceFlow id="flow4" sourceRef="付款" targetRef="收货1"></sequenceFlow>
     <userTask id="收货2" name="收货"></userTask>
     <sequenceFlow id="flow5" sourceRef="发货" targetRef="收货2"></sequenceFlow>

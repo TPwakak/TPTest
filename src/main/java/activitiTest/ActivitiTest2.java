@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
 
@@ -26,12 +28,17 @@ public class ActivitiTest2 {
 	public void deploymentProcessDefinition_inputStream(){	
 		InputStream inputStreambpmn = this.getClass().getResourceAsStream("/diagrams/请假流程2.bpmn");		
 		InputStream inputStreampng = this.getClass().getResourceAsStream("/diagrams/请假流程2.png");		
-		Deployment deployment = processEngine.getRepositoryService()//与流程定义和部署对象相关的Service					
-				.createDeployment()//创建一个部署对象			
-				.name("流程定义")//添加部署的名称			
-				.addInputStream("请假流程2.bpmn", inputStreambpmn)//使用资源文件的名称（要求：与资源文件的名称要一致），和输入流完成部署					
-				.addInputStream("请假流程2.png", inputStreampng)//使用资源文件的名称（要求：与资源文件的名称要一致），和输入流完成部署				
-				.deploy();//完成部署	
+		//创建一个与流程定义和部署对象相关的Service
+		RepositoryService repositoryService = processEngine.getRepositoryService();
+		//获取一个部署对象
+		DeploymentBuilder deploymentBuilder= repositoryService.createDeployment();
+		//添加部署的名称
+		deploymentBuilder.name("请假流程2");
+		//使用资源文件的名称（要求：与资源文件的名称要一致），和输入流完成部署
+		deploymentBuilder.addInputStream("请假流程2.bpmn", inputStreambpmn);					
+		deploymentBuilder.addInputStream("请假流程2.png", inputStreampng);	
+		//完成部署	
+		Deployment deployment = deploymentBuilder.deploy();
 		System.out.println("部署ID："+deployment.getId());//	
 		System.out.println("部署名称："+deployment.getName());//	
 	}
